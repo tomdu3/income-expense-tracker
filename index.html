@@ -41,11 +41,13 @@
           <label class="block text-xs md:text-sm font-medium text-gray-700">Type</label>
           <div class="mt-1 flex gap-4">
             <label class="flex items-center">
-              <input type="radio" name="type" value="income" checked class="h-3 w-3 md:h-4 md:w-4 text-green-600 border-gray-300">
+              <input type="radio" name="type" value="income" checked
+                class="h-3 w-3 md:h-4 md:w-4 text-green-600 border-gray-300">
               <span class="ml-2 text-xs md:text-sm text-gray-700">Income</span>
             </label>
             <label class="flex items-center">
-              <input type="radio" name="type" value="expense" class="h-3 w-3 md:h-4 md:w-4 text-red-600 border-gray-300">
+              <input type="radio" name="type" value="expense"
+                class="h-3 w-3 md:h-4 md:w-4 text-red-600 border-gray-300">
               <span class="ml-2 text-xs md:text-sm text-gray-700">Expenses</span>
             </label>
           </div>
@@ -82,7 +84,8 @@
     <div class="bg-white rounded-lg shadow-md p-6 md:mb-6">
       <div class="flex gap-6">
         <label class="flex items-center">
-          <input type="radio" name="filter" value="all" checked class="h-3 w-3 md:h-4 md:w-4 text-blue-600 border-gray-300">
+          <input type="radio" name="filter" value="all" checked
+            class="h-3 w-3 md:h-4 md:w-4 text-blue-600 border-gray-300">
           <span class="ml-2 text-xs md:text-sm text-gray-700">All</span>
         </label>
         <label class="flex items-center">
@@ -99,14 +102,37 @@
     <!-- Transactions -->
     <div class="bg-white rounded-lg shadow-md p-6">
       <div class="flex flex-row items-center justify-between mb-4">
-        <h2 class="md:text-xl font-semibold text-gray-800 md:mb-4">Transactions <span id="trash-all" class="text-pink-600 hover:text-white hover:bg-pink-600 p-2 rounded-md cursor-pointer" title="Delete all transactions"><i class="fa-solid fa-trash-can-arrow-up"></i></span></h2>
-        <p id="order" class="text-sm md:text-2xl p-1 md:p-2 hover:text-pink-600 cursor-pointer flex gap-1" data-desc="desc"><span class="text-xs md:text-sm">Newest</span> <i class="fa-solid fa-arrow-up-wide-short"></i></p>
+        <h2 class="md:text-xl font-semibold text-gray-800 md:mb-4">Transactions <span id="trash-all"
+            class="text-pink-600 hover:text-white hover:bg-pink-600 p-2 rounded-md cursor-pointer"
+            title="Delete all transactions"><i class="fa-solid fa-trash-can-arrow-up"></i></span></h2>
+        <p id="order" class="text-sm md:text-2xl p-1 md:p-2 hover:text-pink-600 cursor-pointer flex gap-1"
+          data-desc="desc"><span class="text-xs md:text-sm">Newest</span> <i
+            class="fa-solid fa-arrow-up-wide-short"></i></p>
       </div>
       <div id="transactionsList" class="md:space-y-1">
-          <!-- Transactions will be dynamically added here -->
+        <!-- Transactions will be dynamically added here -->
       </div>
+    </div>
   </div>
-  </div>
+  <!-- Confirmation Dialog for deleting all -->
+  <dialog id="confirmDialog" class="rounded-lg shadow-xl p-0 backdrop:bg-gray-800/50 backdrop:blur bg-pink-100">
+    <div class="p-6 max-w-sm">
+      <h3 class="text-lg font-semibold text-gray-900 mb-4">Delete All Transactions?</h3>
+      <p class="text-sm text-gray-600 mb-6">
+        This will remove all your transactions. This action cannot be undone.
+      </p>
+      <div class="flex justify-end gap-3">
+        <button id="cancelDelete"
+          class="px-4 py-2 text-sm font-medium text-white bg-green-400 border border-green-700 rounded-md hover:bg-green-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
+          Cancel
+        </button>
+        <button id="confirmDelete"
+          class="px-4 py-2 text-sm font-medium text-white bg-red-600 border border-transparent rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+          Delete All
+        </button>
+      </div>
+    </div>
+  </dialog>
   <script src="./assets/js/script.js"></script>
 </body>
 

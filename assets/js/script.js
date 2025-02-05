@@ -275,6 +275,9 @@ function cancelEdit(order) {
 
 // Add event listener for delete all button
 const trashAllBtn = document.querySelector('#trash-all');
+const confirmDialog = document.querySelector('#confirmDialog');
+const confirmDeleteBtn = document.querySelector('#confirmDelete');
+const cancelDeleteBtn = document.querySelector('#cancelDelete');
 
 trashAllBtn.addEventListener('click', () => {
     // Check if there are any transactions
@@ -282,19 +285,41 @@ trashAllBtn.addEventListener('click', () => {
         return; // Do nothing if no transactions exist
     }
 
-    // Show confirmation dialog
-    const confirmation = confirm('Are you sure you want to delete all transactions? This action cannot be undone.');
+    // Show dialog
+    confirmDialog.showModal();
+});
 
-    if (confirmation) {
-        // Clear all transactions
-        expenseTrackerData.income = [];
-        expenseTrackerData.expense = [];
-        
-        // Update localStorage
-        localStorage.setItem('expenseTrackerData', JSON.stringify(expenseTrackerData));
-        
-        // Update display
-        updateCurrentState(deleteAll = true);
-        displayTransactions(document.querySelector('input[name="filter"]:checked').value, orderListDesc);
+// Handle dialog confirmation
+confirmDeleteBtn.addEventListener('click', () => {
+    // Clear all transactions
+    expenseTrackerData.income = [];
+    expenseTrackerData.expense = [];
+    
+    // Update localStorage
+    localStorage.setItem('expenseTrackerData', JSON.stringify(expenseTrackerData));
+    
+    // Update display
+    updateCurrentState(deleteAll = true);
+    displayTransactions(document.querySelector('input[name="filter"]:checked').value, orderListDesc);
+    
+    // Close dialog
+    confirmDialog.close();
+});
+
+// Handle dialog cancellation
+cancelDeleteBtn.addEventListener('click', () => {
+    confirmDialog.close();
+});
+
+// Close dialog when clicking outside
+confirmDialog.addEventListener('click', (e) => {
+    const dialogDimensions = confirmDialog.getBoundingClientRect();
+    if (
+        e.clientX < dialogDimensions.left ||
+        e.clientX > dialogDimensions.right ||
+        e.clientY < dialogDimensions.top ||
+        e.clientY > dialogDimensions.bottom
+    ) {
+        confirmDialog.close();
     }
 });
