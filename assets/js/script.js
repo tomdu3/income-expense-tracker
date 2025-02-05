@@ -39,7 +39,7 @@ form.addEventListener('submit', (e) => {
     localStorage.setItem('expenseTrackerData', JSON.stringify(expenseTrackerData));
     form.reset();
     updateCurrentState();
-    displayTransactions(document.querySelector('input[name="filter"]:checked').value);
+    displayTransactions(document.querySelector('input[name="filter"]:checked').value, orderListDesc);
 });
 
 // Reset the form
@@ -74,7 +74,7 @@ const transactionsList = document.querySelector('#transactionsList');
 const orderBtn = document.querySelector('#order');
 
 // load transactions on page load
-displayTransactions();
+displayTransactions('all', orderListDesc);
 
 // toggle order
 orderBtn.addEventListener('click', () => {
@@ -90,11 +90,11 @@ orderBtn.addEventListener('click', () => {
 for (let box of transactionsBoxes) {
     box.addEventListener('change', (e) => {
         if (e.target.value === 'all') {
-            displayTransactions();
+            displayTransactions('all', orderListDesc);
         } else if (e.target.value === 'income') {
-            displayTransactions('income');
+            displayTransactions('income', orderListDesc);
         } else if (e.target.value === 'expense') {
-            displayTransactions('expense');
+            displayTransactions('expense', orderListDesc);
         }
     });
 }
@@ -144,12 +144,55 @@ function displayTransactions(value = 'all', sortOrderDesc = true) {
 
 // Function to delete an entry
 function deleteEntry(order) {
+    // First delete the entry
     expenseTrackerData.income = expenseTrackerData.income.filter(item => item.order !== order);
     expenseTrackerData.expense = expenseTrackerData.expense.filter(item => item.order !== order);
     
+    // Reorder all remaining entries
+    reorderEntries();
+    
+    // Update storage and display
     localStorage.setItem('expenseTrackerData', JSON.stringify(expenseTrackerData));
     updateCurrentState();
     displayTransactions(document.querySelector('input[name="filter"]:checked').value);
+}
+
+// Function to reorder entries
+function reorderEntries() {
+    // Combine all entries and sort them by current order
+    let allEntries = [];
+    
+    // Get income entries with type
+    expenseTrackerData.income.forEach(item => {
+        allEntries.push({ ...item, type: 'income' });
+    });
+    
+    // Get expense entries with type
+    expenseTrackerData.expense.forEach(item => {
+        allEntries.push({ ...item, type: 'expense' });
+    });
+    
+    // Sort by current order
+    allEntries.sort((a, b) => a.order - b.order);
+    
+    // Reassign new sequential orders
+    allEntries.forEach((item, index) => {
+        item.order = index + 1;
+    });
+    
+    // Clear existing arrays
+    expenseTrackerData.income = [];
+    expenseTrackerData.expense = [];
+    
+    // Redistribute entries back to their respective arrays
+    allEntries.forEach(item => {
+        const { type, ...entry } = item;
+        if (type === 'income') {
+            expenseTrackerData.income.push(entry);
+        } else {
+            expenseTrackerData.expense.push(entry);
+        }
+    });
 }
 
 // Function to edit an entry
