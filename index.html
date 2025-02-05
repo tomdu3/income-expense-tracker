@@ -1,34 +1,70 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Tom's Income Expense Calculator</title>
-    <link href="css/style.css" rel="stylesheet" />
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-  </head>
-  <body class="bg-gray-100 min-h-screen p-4">
-    <!-- Body Contents Inner Wrapper -->
-    <div class="max-w-2xl mx-auto">
-      <!-- Header Section -->
-      <div class="bg-white rounded-lg shadow-md p-6 mb-6">
-        <h1 class="text-2xl text-center md:text-3xl font-bold text-gray-800 mb-4">Tom's Income Expense Calculator</h1>
-        <div class="grid grid-cols-3 gap-4 mb-6">
-            <div class="bg-green-100 p-4 rounded-lg">
-                <p class="text-sm text-green-600">Income</p>
-                <p class="text-2xl font-semibold text-green-600" id="total-income">$0</p>
-            </div>
-            <div class="bg-red-100 p-4 rounded-lg">
-                <p class="text-sm text-red-600">Expense</p>
-                <p class="text-2xl font-semibold text-red-600" id="total-expense">$0</p>
-            </div>
-            <div class="bg-blue-100 p-4 rounded-lg">
-                <p class="text-sm text-blue-600">Balance</p>
-                <p class="text-2xl font-semibold text-blue-600" id="net-balance">$0</p>
-            </div>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tom's Income Expense Calculator</title>
+  <link href="css/style.css" rel="stylesheet" />
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 min-h-screen p-4">
+  <!-- Body Contents Inner Wrapper -->
+  <div class="max-w-2xl mx-auto">
+    <!-- Header Section -->
+    <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+      <h1 class="text-2xl text-center md:text-3xl font-bold text-gray-800 mb-4">Tom's Income Expense Calculator</h1>
+      <!-- Financial Info -->
+      <div class="grid grid-cols-3 gap-4 mb-6">
+        <div class="bg-green-100 p-4 rounded-lg">
+          <p class="text-sm text-green-600">Income</p>
+          <p class="text-2xl font-semibold text-green-600" id="total-income">$0</p>
         </div>
+        <div class="bg-red-100 p-4 rounded-lg">
+          <p class="text-sm text-red-600">Expense</p>
+          <p class="text-2xl font-semibold text-red-600" id="total-expense">$0</p>
+        </div>
+        <div class="bg-blue-100 p-4 rounded-lg">
+          <p class="text-sm text-blue-600">Balance</p>
+          <p class="text-2xl font-semibold text-blue-600" id="net-balance">$0</p>
+        </div>
+      </div>
+
+      <!-- Input Form -->
+      <form id="entryForm" class="space-y-4">
+        <!-- Radio Buttons for the type of entry -->
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Type</label>
+          <div class="mt-1 flex gap-4">
+            <label class="flex items-center">
+              <input type="radio" name="type" value="income" checked class="h-4 w-4 text-green-600 border-gray-300">
+              <span class="ml-2 text-sm text-gray-700">Income</span>
+            </label>
+            <label class="flex items-center">
+              <input type="radio" name="type" value="expense" class="h-4 w-4 text-red-600 border-gray-300">
+              <span class="ml-2 text-sm text-gray-700">Expense</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Input Entry: Description and Amount -->
+        <div>
+          <label for="description" class="block text-sm font-medium text-gray-700">Description</label>
+          <input type="text" id="description" required
+            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+        </div>
+
+        <div>
+          <label for="amount" class="block text-sm font-medium text-gray-700">Amount</label>
+          <input type="number" id="amount" required
+            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+        </div>
+
+      </form>
     </div>
-    </div>
-  </body>
+  </div>
+</body>
+
 </html>
