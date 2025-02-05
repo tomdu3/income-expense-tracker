@@ -2,7 +2,7 @@
 
 let expenseTrackerData = {
     income: [],
-    expenses: []
+    expense: []
 };
 
 const totalIncome = document.querySelector('#totalIncome');
@@ -16,7 +16,21 @@ let balanceAmount = 0;
 if (localStorage.getItem('expenseTrackerData')) {
     expenseTrackerData = JSON.parse(localStorage.getItem('expenseTrackerData'));
     console.log(expenseTrackerData);  // TODO: Remove in final version
-    // display data on header
+
+    // Assign 'order' to existing transactions if missing
+    let orderCounter = 1;
+    expenseTrackerData.income.forEach(transaction => {
+        if (!transaction.hasOwnProperty('order')) {
+            transaction.order = orderCounter++;
+        }
+    });
+
+    expenseTrackerData.expense.forEach(transaction => {
+        if (!transaction.hasOwnProperty('order')) {
+            transaction.order = orderCounter++;
+        }
+    });
+    localStorage.setItem('expenseTrackerData', JSON.stringify(expenseTrackerData));
     updateCurrentState();
 }
 
@@ -28,18 +42,20 @@ form.addEventListener('submit', (e) => {
     const type = formData.get('type');
     const description = formData.get('description');
     const amount = formData.get('amount');
-    console.log(type, description, amount);  // TODO: Remove in final version, check if the data is correct
-    // separate data based on type and add it to the data structure
+    
+    const currentTotal = expenseTrackerData.income.length + expenseTrackerData.expense.length;
+    const order = currentTotal + 1;
+
     if (type === 'income') {
-        expenseTrackerData.income.push({ description, amount });
+        expenseTrackerData.income.push({ description, amount, order });
     } else {
-        expenseTrackerData.expenses.push({ description, amount });
+        expenseTrackerData.expense.push({ description, amount, order });
     }
-    // save data to local storage
     localStorage.setItem('expenseTrackerData', JSON.stringify(expenseTrackerData));
     form.reset();
     updateCurrentState();
 });
+
 
 // Reset the form
 const resetBtn = document.querySelector('#resetBtn');
@@ -54,8 +70,8 @@ function updateCurrentState() {
         console.log(totalIncomeAmount);
         console.log(expenseTrackerData.income);
         }
-    if (expenseTrackerData.expenses.length !== 0){
-        totalExpensesAmount = expenseTrackerData.expenses.reduce((acc, cur) => acc + parseFloat(cur.amount), 0);
+    if (expenseTrackerData.expense.length !== 0){
+        totalExpensesAmount = expenseTrackerData.expense.reduce((acc, cur) => acc + parseFloat(cur.amount), 0);
     }
     balanceAmount = totalIncomeAmount - totalExpensesAmount;
     totalIncome.textContent = `${currencyFormat(totalIncomeAmount)}`;
@@ -68,4 +84,63 @@ function currencyFormat(num) {
         style: 'currency',
         currency: 'USD',
       });
+}
+
+
+const transactionsBoxes = document.querySelectorAll("input[name='filter']");
+const transactionsList = document.querySelector('#transactionsList');
+for (box of transactionsBoxes) {
+    box.addEventListener('change', (e) => {
+        if (e.target.value === 'all') {
+            console.log('all');
+            displayTransactions();
+        } else if (e.target.value === 'income') {
+            displayTransactions('income');
+        } else if (e.target.value === 'expense') {
+            displayTransactions('expense');
+        }
+    });
+}
+
+function displayTransactions(value = 'all', sortOrder = 'desc') {
+    let displayData = [];
+
+    for (const [key, values] of Object.entries(expenseTrackerData)) {
+        for (const item of values) {
+            displayData.push({ ...item, type: key });
+        }
+    }
+
+    let filtered = value === 'all' ? displayData : displayData.filter(item => item.type === value);
+
+    // Add sorting functionality
+    filtered.sort((a, b) => {
+        const comparison = a.order - b.order;
+        return sortOrder === 'desc' ? -comparison : comparison;
+    });
+
+    const entriesHtml = filtered.map(item => `
+        <div class="flex items-center justify-between bg-gray-50 p-2 md:p-4 rounded-lg">
+            <div class="flex-1">
+                <span class="text-sm ${item.type === 'income' ? 'text-green-600' : 'text-red-600'}">
+                    ${item.description}
+                </span>
+            </div>
+            <div class="flex items-center gap-4">
+                <span class="font-medium ${item.type === 'income' ? 'text-green-600' : 'text-red-600'}">
+                    ${currencyFormat(parseFloat(item.amount))}
+                </span>
+                <button onclick="editEntry(${item.order})"
+                    class="text-blue-600 hover:text-blue-800">
+                    ✏️
+                </button>
+                <button onclick="deleteEntry(${item.order})"
+                    class="text-red-600 hover:text-red-800">
+                    🗑️
+                </button>
+            </div>
+        </div>
+    `).join('');
+
+    transactionsList.innerHTML = entriesHtml;
 }
