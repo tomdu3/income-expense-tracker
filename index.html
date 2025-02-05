@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Tom's Income Expense Calculator</title>
+  <title>Tom's Income Expenses Calculator</title>
   <link href="css/style.css" rel="stylesheet" />
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -15,7 +15,7 @@
   <div class="max-w-2xl mx-auto">
     <!-- Header Section -->
     <div class="bg-white rounded-lg shadow-md p-6 mb-6">
-      <h1 class="text-2xl text-center md:text-3xl font-bold text-gray-800 mb-4">Tom's Income Expense Calculator</h1>
+      <h1 class="text-2xl text-center md:text-3xl font-bold text-gray-800 mb-4">Tom's Income/Expenses Calculator</h1>
       <!-- Financial Info -->
       <div class="grid grid-cols-3 gap-4 mb-6">
         <div class="bg-green-100 p-4 rounded-lg">
@@ -44,7 +44,7 @@
             </label>
             <label class="flex items-center">
               <input type="radio" name="type" value="expense" class="h-4 w-4 text-red-600 border-gray-300">
-              <span class="ml-2 text-xs md:text-sm text-gray-700">Expense</span>
+              <span class="ml-2 text-xs md:text-sm text-gray-700">Expenses</span>
             </label>
           </div>
         </div>
@@ -59,7 +59,7 @@
         <div>
           <label for="amount" class="block text-xs md:text-sm font-medium text-gray-700">Amount</label>
           <!-- Add step attribute for validation -->
-          <input type="number" name="amount" id="amount" step="0.01" min="0.01"  required
+          <input type="number" name="amount" id="amount" step="0.01" min="0.01" required
             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
         </div>
 
@@ -75,6 +75,23 @@
           </button>
         </div>
       </form>
+    </div>
+    <!-- Filters -->
+    <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+      <div class="flex gap-6">
+        <label class="flex items-center">
+          <input type="radio" name="filter" value="all" checked class="h-4 w-4 text-blue-600 border-gray-300">
+          <span class="ml-2 text-xs md:text-sm text-gray-700">All</span>
+        </label>
+        <label class="flex items-center">
+          <input type="radio" name="filter" value="income" class="h-4 w-4 text-green-600 border-gray-300">
+          <span class="ml-2 text-xs md:text-sm text-gray-700">Income</span>
+        </label>
+        <label class="flex items-center">
+          <input type="radio" name="filter" value="expense" class="h-4 w-4 text-red-600 border-gray-300">
+          <span class="ml-2 text-xs md:text-sm text-gray-700">Expenses</span>
+        </label>
+      </div>
     </div>
   </div>
   <script src="./assets/js/script.js"></script>
