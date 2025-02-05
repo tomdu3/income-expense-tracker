@@ -58,10 +58,22 @@
 
         <div>
           <label for="amount" class="block text-sm font-medium text-gray-700">Amount</label>
-          <input type="number" id="amount" required
+          <!-- Add step attribute for validation -->
+          <input type="number" id="amount" step="0.01" required
             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
         </div>
 
+        <!-- Buttons: Add Entry and Reset -->
+        <div class="flex gap-4">
+          <button type="submit" id="submitBtn"
+            class="flex-1 bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">
+            Add Entry
+          </button>
+          <button type="button" id="resetBtn"
+            class="flex-1 bg-gray-600 text-white px-4 py-2 rounded-md hover:bg-gray-700">
+            Reset
+          </button>
+        </div>
       </form>
     </div>
   </div>
