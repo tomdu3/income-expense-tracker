@@ -38,6 +38,7 @@ form.addEventListener('submit', (e) => {
     // save data to local storage
     localStorage.setItem('expenseTrackerData', JSON.stringify(expenseTrackerData));
     form.reset();
+    updateCurrentState();
 });
 
 // Reset the form
