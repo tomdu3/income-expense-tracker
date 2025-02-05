@@ -14,7 +14,7 @@
   <!-- Body Contents Inner Wrapper -->
   <div class="max-w-2xl mx-auto">
     <!-- Header Section -->
-    <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+    <div class="bg-white rounded-lg shadow-md p-6 mb-3 md:mb-6">
       <h1 class="text-2xl text-center md:text-3xl font-bold text-gray-800 mb-4">Tom's Income/Expenses Calculator</h1>
       <!-- Financial Info -->
       <div class="grid grid-cols-3 gap-4 mb-6">
@@ -77,7 +77,7 @@
       </form>
     </div>
     <!-- Filters -->
-    <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+    <div class="bg-white rounded-lg shadow-md p-6 md:mb-6">
       <div class="flex gap-6">
         <label class="flex items-center">
           <input type="radio" name="filter" value="all" checked class="h-4 w-4 text-blue-600 border-gray-300">
@@ -93,6 +93,17 @@
         </label>
       </div>
     </div>
+
+    <!-- Transactions -->
+    <div class="bg-white rounded-lg shadow-md p-6">
+      <div class="flex flex-row items-center justify-between mb-4">
+        <h2 class="md:text-xl font-semibold text-gray-800 md:mb-4">Transactions</h2>
+        <button id="order" class="text-sm md:text-2xl bg-blue-100 p-2 md:p-4 rounded-lg hover:text-gray-800">Desc</button>
+      </div>
+      <div id="transactionsList" class="md:space-y-3">
+          <!-- Transactions will be dynamically added here -->
+      </div>
+  </div>
   </div>
   <script src="./assets/js/script.js"></script>
 </body>
