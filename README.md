@@ -31,71 +31,103 @@ git clone https://github.com/tomdu3/income-expense-tracker.git
 
 2. Open `index.html` in your preferred web browser
 
-## Tech Stack 🛠️
 
-- **Frontend**: HTML5, CSS3, JavaScript (ES6+)
-- **Styling**: Tailwind CSS if implemented
-- **Persistence**: Browser Local Storage
-- **Hosting**: Netlify
+## Technology Stack & Tools 🛠️
 
-## Key Functionality 🔑
+- **Frontend Core**:
+  - HTML5
+  - CSS3
+  - JavaScript (ES6+)
+- **CSS Framework**: 
+  - [Tailwind CSS](https://tailwindcss.com/) - Utility-first CSS framework
+- **Icons & Styling**:
+  - [Font Awesome](https://fontawesome.com/) - Icons library (via CDN)
+- **Storage**:
+  - Browser Local Storage API for data persistence
+- **Hosting**:
+  - [Netlify](https://www.netlify.com/) - Web hosting and deployment
 
-- Add new income/expense entries with descriptions and amounts
-- Edit existing entries directly in the list
-- Delete individual entries with confirmation
-- Filter transactions by type (All/Income/Expense)
-- Automatic calculation of:
-  - Total Income
-  - Total Expenses
-  - Net Balance
-- Data persistence across sessions
-- Mobile-first responsive design
+## Features Deep Dive 🔍
 
-## Usage Guide 📖
+### Core Functionality
+- **Transaction Management**:
+  - Add/Edit/Delete individual transactions
+  - Bulk delete all transactions with confirmation
+  - Real-time balance calculation
+  - Data persistence across sessions
 
-1. **Add Entry**:
+### UI/UX Features
+- **Responsive Design**:
+  - Mobile-first approach
+  - Fluid layout adapting to all screen sizes
+- **Modern Interface**:
+  - Clean, intuitive design
+  - Color-coded transactions (green for income, red for expenses)
+  - Interactive elements with hover states
+- **Smart Interactions**:
+  - In-place editing of transactions
+  - Keyboard shortcuts (Enter to save, Esc to cancel)
+  - Confirmation dialogs for destructive actions
+  - Sort transactions by newest/oldest
 
-   - Select Income/Expense type
-   - Enter description and amount
-   - Click "Add Entry"
+### Data Management
+- **Local Storage**:
+  - Automatic data saving
+  - Session persistence
+  - Data structure optimization
+- **Transaction Ordering**:
+  - Automatic reordering after deletions
+  - Maintained chronological integrity
+  - Smart filtering system
 
-2. **Edit Entry**:
+## Code Architecture 🏗️
 
-   - Click edit icon (✏️) on any entry
-   - Modify values in the updated form
-   - Click "Update Entry"
+### JavaScript Components
+- **Core Functions**:
+  ```javascript
+  updateCurrentState() // Manages financial calculations
+  displayTransactions() // Handles transaction display logic
+  editEntry() // In-place editing functionality
+  deleteEntry() // Single transaction deletion
+  reorderEntries() // Maintains transaction order
+  ```
+- **Event Handlers**:
+  ```javascript
+  form.addEventListener() // New transaction handling
+  orderBtn.addEventListener() // Sort order toggling
+  trashAllBtn.addEventListener() // Bulk deletion
+  ```
 
-3. **Delete Entry**:
+### Data Structure
+```javascript
+expenseTrackerData = {
+    income: [{description, amount, order}],
+    expense: [{description, amount, order}]
+}
+```
 
-   - Click delete icon (🗑️) on any entry
-   - Confirm deletion
+## Acknowledgements 🙏
 
-4. **Filter Entries**:
+This project was made possible thanks to these amazing technologies and resources:
 
-   - Use radio buttons to filter:
-     - All transactions
-     - Income only
-     - Expenses only
-
-5. **Reset Form**:
-   - Click "Reset" to clear input fields
-
-## Contributing 🤝
-
-Contributions are welcome! Please follow these steps:
-
-1. Fork the project
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+- [Tailwind CSS](https://tailwindcss.com/) - For the utility-first CSS framework that made styling a breeze
+- [Font Awesome](https://fontawesome.com/) - For the beautiful icons used throughout the interface
+- [favicon.io](https://favicon.io) - For generating the favicon used in the project
+- [MDN Web Docs](https://developer.mozilla.org/) - For comprehensive documentation on Local Storage and DOM manipulation
+- [Netlify](https://www.netlify.com/) - For providing reliable and easy-to-use hosting services
 
 ## License 📄
 
-Distributed under the MIT License. See `LICENSE` for more information.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## Acknowledgments 🙏
+## Future Enhancements 🚀
 
-- Inspired by personal finance management tools
-- Built with vanilla web technologies
-- Local storage implementation MDN Web Docs <!-- TODO: Add the link -->
+- Data export functionality
+- Multiple currency support
+- Category-based transaction grouping
+- Data visualization with charts
+- Cloud storage integration
+
+## Copyright Notice
+Copyright © 2025 Tomislav Dukez. All rights reserved.
+
