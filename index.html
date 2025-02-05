@@ -6,6 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Tom's Income Expenses Calculator</title>
   <link href="css/style.css" rel="stylesheet" />
+  <!-- Font Awesome CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
@@ -98,9 +100,9 @@
     <div class="bg-white rounded-lg shadow-md p-6">
       <div class="flex flex-row items-center justify-between mb-4">
         <h2 class="md:text-xl font-semibold text-gray-800 md:mb-4">Transactions</h2>
-        <button id="order" class="text-sm md:text-2xl bg-blue-100 p-2 md:p-4 rounded-lg hover:text-gray-800">Desc</button>
+        <p id="order" class="text-sm md:text-2xl p-1 md:p-2 hover:text-pink-600 cursor-pointer flex gap-1" data-desc="desc"><span class="text-xs md:text-sm">Newest</span> <i class="fa-solid fa-arrow-up-wide-short"></i></p>
       </div>
-      <div id="transactionsList" class="md:space-y-3">
+      <div id="transactionsList" class="md:space-y-1">
           <!-- Transactions will be dynamically added here -->
       </div>
   </div>

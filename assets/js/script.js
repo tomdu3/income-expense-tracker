@@ -11,6 +11,7 @@ const balance = document.querySelector('#balance');
 let totalIncomeAmount = 0;
 let totalExpensesAmount = 0;
 let balanceAmount = 0;
+let orderListDesc = true;
 
 // load data from local storage if it exists
 if (localStorage.getItem('expenseTrackerData')) {
@@ -19,17 +20,17 @@ if (localStorage.getItem('expenseTrackerData')) {
 
     // Assign 'order' to existing transactions if missing
     let orderCounter = 1;
-    expenseTrackerData.income.forEach(transaction => {
-        if (!transaction.hasOwnProperty('order')) {
-            transaction.order = orderCounter++;
-        }
-    });
+    // expenseTrackerData.income.forEach(transaction => {
+    //     if (!transaction.hasOwnProperty('order')) {
+    //         transaction.order = orderCounter++;
+    //     }
+    // });
 
-    expenseTrackerData.expense.forEach(transaction => {
-        if (!transaction.hasOwnProperty('order')) {
-            transaction.order = orderCounter++;
-        }
-    });
+    // expenseTrackerData.expense.forEach(transaction => {
+    //     if (!transaction.hasOwnProperty('order')) {
+    //         transaction.order = orderCounter++;
+    //     }
+    // });
     localStorage.setItem('expenseTrackerData', JSON.stringify(expenseTrackerData));
     updateCurrentState();
 }
@@ -54,6 +55,7 @@ form.addEventListener('submit', (e) => {
     localStorage.setItem('expenseTrackerData', JSON.stringify(expenseTrackerData));
     form.reset();
     updateCurrentState();
+    displayTransactions(document.querySelector('input[name="filter"]:checked').value);
 });
 
 
@@ -87,8 +89,23 @@ function currencyFormat(num) {
 }
 
 
+
 const transactionsBoxes = document.querySelectorAll("input[name='filter']");
 const transactionsList = document.querySelector('#transactionsList');
+const orderBtn = document.querySelector('#order');
+// load transactions on page load
+displayTransactions();
+
+// toggle order
+orderBtn.addEventListener('click', () => {
+    // get value of the radio button
+    let selectedValue = document.querySelector('input[name="filter"]:checked').value;  
+    orderListDesc = !orderListDesc;
+    orderBtn.dataset.desc = orderBtn.dataset.desc === 'desc' ? 'asc' : 'desc'
+    orderBtn.innerHTML = orderBtn.dataset.desc === 'desc' ? '<span class="text-xs md:text-sm">Newest</span> <i class="fa-solid fa-arrow-up-wide-short"></i>' : '<span class="text-xs md:text-sm">Oldest</span> <i class="fa-solid fa-arrow-down-wide-short"></i>';
+    displayTransactions(selectedValue, orderListDesc);
+});
+
 for (box of transactionsBoxes) {
     box.addEventListener('change', (e) => {
         if (e.target.value === 'all') {
@@ -102,7 +119,7 @@ for (box of transactionsBoxes) {
     });
 }
 
-function displayTransactions(value = 'all', sortOrder = 'desc') {
+function displayTransactions(value = 'all', sortOrderDesc = true) {
     let displayData = [];
 
     for (const [key, values] of Object.entries(expenseTrackerData)) {
@@ -116,11 +133,11 @@ function displayTransactions(value = 'all', sortOrder = 'desc') {
     // Add sorting functionality
     filtered.sort((a, b) => {
         const comparison = a.order - b.order;
-        return sortOrder === 'desc' ? -comparison : comparison;
+        return sortOrderDesc ? -comparison : comparison;
     });
 
     const entriesHtml = filtered.map(item => `
-        <div class="flex items-center justify-between bg-gray-50 p-2 md:p-4 rounded-lg">
+        <div class="flex items-center justify-between bg-gray-50 md:p-4 rounded-lg">
             <div class="flex-1">
                 <span class="text-sm ${item.type === 'income' ? 'text-green-600' : 'text-red-600'}">
                     ${item.description}
