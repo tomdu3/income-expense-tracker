@@ -17,15 +17,7 @@ if (localStorage.getItem('expenseTrackerData')) {
     expenseTrackerData = JSON.parse(localStorage.getItem('expenseTrackerData'));
     console.log(expenseTrackerData);  // TODO: Remove in final version
     // display data on header
-    for (income of expenseTrackerData.income) {
-       console.log(income);
-        }
-    totalIncomeAmount = expenseTrackerData.income.reduce((acc, cur) => acc + parseInt(cur.amount), 0);
-    totalExpensesAmount = expenseTrackerData.expenses.reduce((acc, cur) => acc + parseInt(cur.amount), 0);
-    balanceAmount = totalIncomeAmount - totalExpensesAmount;
-    totalIncome.textContent = `$${totalIncomeAmount}`;
-    totalExpenses.textContent = `$${totalExpensesAmount}`;
-    balance.textContent = `$${balanceAmount}`;
+    updateCurrentState();
 }
 
 // get data from the form on submit
@@ -53,3 +45,13 @@ const resetBtn = document.querySelector('#resetBtn');
 resetBtn.addEventListener('click', () => {
     form.reset();
 });
+
+// update the total income, total expenses, and balance
+function updateCurrentState() {
+    totalIncomeAmount = expenseTrackerData.income.reduce((acc, cur) => acc + parseInt(cur.amount), 0);
+    totalExpensesAmount = expenseTrackerData.expenses.reduce((acc, cur) => acc + parseInt(cur.amount), 0);
+    balanceAmount = totalIncomeAmount - totalExpensesAmount;
+    totalIncome.textContent = `$${totalIncomeAmount}`;
+    totalExpenses.textContent = `$${totalExpensesAmount}`;
+    balance.textContent = `$${balanceAmount}`;
+}
