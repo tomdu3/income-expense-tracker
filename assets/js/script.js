@@ -48,10 +48,23 @@ resetBtn.addEventListener('click', () => {
 
 // update the total income, total expenses, and balance
 function updateCurrentState() {
-    totalIncomeAmount = expenseTrackerData.income.reduce((acc, cur) => acc + parseInt(cur.amount), 0);
-    totalExpensesAmount = expenseTrackerData.expenses.reduce((acc, cur) => acc + parseInt(cur.amount), 0);
+    if (expenseTrackerData.income.length !== 0){
+        totalIncomeAmount = expenseTrackerData.income.reduce((acc, cur) => acc + parseFloat(cur.amount), 0);
+        console.log(totalIncomeAmount);
+        console.log(expenseTrackerData.income);
+        }
+    if (expenseTrackerData.expenses.length !== 0){
+        totalExpensesAmount = expenseTrackerData.expenses.reduce((acc, cur) => acc + parseFloat(cur.amount), 0);
+    }
     balanceAmount = totalIncomeAmount - totalExpensesAmount;
-    totalIncome.textContent = `$${totalIncomeAmount}`;
-    totalExpenses.textContent = `$${totalExpensesAmount}`;
-    balance.textContent = `$${balanceAmount}`;
+    totalIncome.textContent = `${currencyFormat(totalIncomeAmount)}`;
+    totalExpenses.textContent = `${currencyFormat(totalExpensesAmount)}`;
+    balance.textContent = `${currencyFormat(balanceAmount)}`;
+}
+
+function currencyFormat(num) {
+    return num.toLocaleString('en-US', {
+        style: 'currency',
+        currency: 'USD',
+      });
 }
