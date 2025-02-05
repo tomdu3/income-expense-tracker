@@ -120,6 +120,7 @@ function displayTransactions(value = 'all', sortOrderDesc = true) {
         return sortOrderDesc ? -comparison : comparison;
     });
 
+    // Make HTML for each transaction and put them together
     const entriesHtml = filtered.map(item => `
         <div class="flex items-center justify-between bg-gray-50 md:p-4 rounded-lg">
             <div class="flex-1">
@@ -143,6 +144,7 @@ function displayTransactions(value = 'all', sortOrderDesc = true) {
         </div>
     `).join('');
 
+    // Put the transaction list into the DOM
     transactionsList.innerHTML = entriesHtml;
 }
 
