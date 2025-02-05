@@ -2,7 +2,9 @@
 
 A simple yet powerful web application to track your income and expenses with full CRUD functionality. Manage your finances effectively with this intuitive tool that persists data using local storage.
 
-![Project Screenshot](screenshots/app-preview.png) <!-- TODO: Add actual screenshot later -->
+![Project Screenshot](/assets/docs/amiresponsive.png)
+
+[Link to deployed app](https://tom-budget-tracker.netlify.app/)
 
 ## Features ✨
 
@@ -17,7 +19,7 @@ A simple yet powerful web application to track your income and expenses with ful
 
 ## Live Demo 🚀
 
-[View Live Application](https://your-netlify-app-url.netlify.app) <!-- TODO: Replace with your actual URL -->
+[View Live Application](https://tom-budget-tracker.netlify.app/) 
 
 ## Installation 💻
 
@@ -32,7 +34,7 @@ git clone https://github.com/tomdu3/income-expense-tracker.git
 ## Tech Stack 🛠️
 
 - **Frontend**: HTML5, CSS3, JavaScript (ES6+)
-- **Styling**: Pure CSS (or Tailwind CSS if implemented) <!-- TODO: Replace with your actual styling framework -->
+- **Styling**: Tailwind CSS if implemented
 - **Persistence**: Browser Local Storage
 - **Hosting**: Netlify
 
