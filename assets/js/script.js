@@ -145,7 +145,7 @@ function displayTransactions(value = 'all', sortOrderDesc = true) {
             </div>
             <div class="flex items-center gap-4">
                 <span class="font-medium ${item.type === 'income' ? 'text-green-600' : 'text-red-600'}">
-                    ${currencyFormat(parseFloat(item.amount))}
+                ${item.type === 'income' ? '+': '-'}${currencyFormat(parseFloat(item.amount))}
                 </span>
                 <button onclick="editEntry(${item.order})"
                     class="text-blue-600 hover:text-blue-800">
