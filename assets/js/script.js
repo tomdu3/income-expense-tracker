@@ -49,12 +49,16 @@ resetBtn.addEventListener('click', () => {
 });
 
 // update the total income, total expenses, and balance
-function updateCurrentState() {
+function updateCurrentState(deleteAll = false) {
     if (expenseTrackerData.income.length !== 0) {
         totalIncomeAmount = expenseTrackerData.income.reduce((acc, cur) => acc + parseFloat(cur.amount), 0);
     }
     if (expenseTrackerData.expense.length !== 0) {
         totalExpensesAmount = expenseTrackerData.expense.reduce((acc, cur) => acc + parseFloat(cur.amount), 0);
+    }
+    if (deleteAll) {
+        totalIncomeAmount = 0;
+        totalExpensesAmount = 0;
     }
     balanceAmount = totalIncomeAmount - totalExpensesAmount;
     totalIncome.textContent = `${currencyFormat(totalIncomeAmount)}`;
@@ -268,3 +272,29 @@ function saveEdit(order) {
 function cancelEdit(order) {
     displayTransactions(document.querySelector('input[name="filter"]:checked').value);
 }
+
+// Add event listener for delete all button
+const trashAllBtn = document.querySelector('#trash-all');
+
+trashAllBtn.addEventListener('click', () => {
+    // Check if there are any transactions
+    if (expenseTrackerData.income.length === 0 && expenseTrackerData.expense.length === 0) {
+        return; // Do nothing if no transactions exist
+    }
+
+    // Show confirmation dialog
+    const confirmation = confirm('Are you sure you want to delete all transactions? This action cannot be undone.');
+
+    if (confirmation) {
+        // Clear all transactions
+        expenseTrackerData.income = [];
+        expenseTrackerData.expense = [];
+        
+        // Update localStorage
+        localStorage.setItem('expenseTrackerData', JSON.stringify(expenseTrackerData));
+        
+        // Update display
+        updateCurrentState(deleteAll = true);
+        displayTransactions(document.querySelector('input[name="filter"]:checked').value, orderListDesc);
+    }
+});
